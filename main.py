@@ -53,12 +53,12 @@ def dashboard():
 
         cursor_obj.execute(query)
 
-        files = cursor_obj.fetchall()
+        files = cursor_obj.fetchone()
         print(files)
 
-        for file in files:
-            st.write(file["file_name"])
-            st.write(file["file_type"])
+        # for file in files:
+        #     st.write(file["file_name"])
+        #     st.write(file["file_type"])
         
 
         if len(files)  == 0:
