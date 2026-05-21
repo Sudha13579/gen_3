@@ -47,7 +47,7 @@ def dashboard():
        
 
         query = """
-        SELECT * FROM files2
+        SELECT * FROM files4
         ORDER BY upload_date DESC
         """
 
