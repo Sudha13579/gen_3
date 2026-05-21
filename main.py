@@ -40,33 +40,32 @@ def dashboard():
             url=uploaded_dict_obj["secure_url"]             
             st.write(url)
             st.write("file uploaded to cloudinary")
+   
     elif opt == "viewFiles":
-
         st.header("View Files")
 
-       
+    query = """
+    SELECT * FROM files4
+    ORDER BY upload_date DESC
+    """
 
-        query = """
-        SELECT * FROM files4
-        ORDER BY upload_date DESC
-        """
+    cursor_obj.execute(query)
 
-        cursor_obj.execute(query)
+    files = cursor_obj.fetchall()
 
-        files = cursor_obj.fetchone()
-        print(files)
+    print(files)
 
-        # for file in files:
-        #     st.write(file["file_name"])
-        #     st.write(file["file_type"])
-        
+    if not files:
+        st.error("No files in DB")
 
-        if len(files)  == 0:
-            st.error("no files in db")
-    elif opt == "Logout":
-        st.session_state.user=None
-        st.success("logout successfully...")
-        st.rerun()
+    else:
+        for file in files:
+
+            st.write("File Name:", file["file_name"])
+            st.write("File Type:", file["file_type"])
+            st.write("Upload Date:", file["upload_date"])
+
+            st.write("-------------------")
 
 def login_function():
     st.header("Login")
